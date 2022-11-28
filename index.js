@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const port =  process.env.PORT || 8800;
+const port =  process.env.PORT || 8000;
 const AuthRoute  = require("./Routes/AuthRoute");
 
 dotenv.config();
@@ -13,7 +13,6 @@ app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true}))
-
 
 app.get("/", (req, res) => {
     res.send("Welcome to My App")
