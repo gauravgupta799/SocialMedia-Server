@@ -50,4 +50,59 @@ const deleteUser = async (req, res) => {
         res.status(403).json("You can delete only your account.")
     }
 }
-module.exports = {getUser, updateUser,deleteUser };
+// Follow a user
+const followUser = async(req, res) => {
+    const id = req.params.id;
+    const {currentUserId } = req.body;
+    if(id === currentUserId){
+        res.status(403).json({msg:"Action forbidden"})
+    }else{
+        try{
+            const followUser = await User.findById(id);
+            const followingUser =await User.findById(currentUserId);
+
+            if(!followUser.followers.includes(currentUserId)){
+                await followUser.updateOne({
+                    $push: { followers:currentUserId}
+                });
+                await followingUser.updateOne({
+                    $push: { following:id}
+                });
+                res.status(200).json({msg :"User followed!"})
+            }else{
+                res.status(403).json({msg:"User is already followed by you."})
+            }
+        }catch (err) {
+            res.status(500).json({ message: err.message})
+        }
+    }
+}
+// Unfollow a user
+const UnfollowUser = async (req, res) => {
+    const id = req.params.id;
+    const {currentUserId } = req.body;
+    if(id === currentUserId){
+        res.status(403).json({msg:"Action forbidden"})
+    }else{
+        try{
+            const followUser = await User.findById(id);
+            const followingUser =await User.findById(currentUserId);
+
+            if(followUser.followers.includes(currentUserId)){
+                await followUser.updateOne({
+                    $pull: { followers:currentUserId}
+                });
+                await followingUser.updateOne({
+                    $pull: { following:id}
+                });
+                res.status(200).json({msg :"User unfollowed!"})
+            }else{
+                res.status(403).json({msg:"User is not followed by you."})
+            }
+        }catch (err) {
+            res.status(500).json({ message: err.message})
+        }
+    }
+}
+
+module.exports = {getUser, updateUser,deleteUser,followUser,UnfollowUser};
