@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const port =  process.env.PORT || 8000;
 const AuthRoute  = require("./Routes/AuthRoute");
+const UserRoute  = require("./Routes/UserRoute");
 
 dotenv.config();
 app.use(express.json());
@@ -19,7 +20,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/auth", AuthRoute)
-
+app.use('/user', UserRoute)
 
 
 
