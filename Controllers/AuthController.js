@@ -28,7 +28,7 @@ const login = async (req, res) => {
         if(!ValidatePass){
             res.status(403).json({ message: "Invalid password or username!" })
         }else{
-            const accessToken = jwt.sign({id:user._id,username:user.username},"gaurav99",{expiresIn:'1h'})
+            const accessToken = jwt.sign({id:user._id,username:user.username} ,process.env.Security_key, {expiresIn:'24h'})
             // const {password, ...info} = user._doc;
             res.status(200).json({ message: "You logged in successfully",accessToken:accessToken })
         }

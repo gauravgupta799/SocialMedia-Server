@@ -113,8 +113,6 @@ const getTimelinePosts = async (req, res) => {
 	}
 };
 
-
-
 module.exports = {
 	createPost,
 	getPost,
