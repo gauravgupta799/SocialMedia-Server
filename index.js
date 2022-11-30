@@ -26,9 +26,6 @@ app.use('/user', UserRoute)
 app.use('/post', PostRoute)
 
 
-
-
-
 mongoose.connect(process.env.MongoURL ,{useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => {
     console.log("Database connection established");

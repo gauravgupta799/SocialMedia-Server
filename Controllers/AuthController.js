@@ -10,7 +10,7 @@ const register = async (req, res) => {
 		user && res.status(409).json({ message: "Username already exists" });
 		const salt = await bcrypt.genSalt(10);
 		const hashedPass = await bcrypt.hash(password, salt);
-		let newUser = await User({ ...req.body, password: hashedPass }).save();
+		let newUser = await new User({ ...req.body, password: hashedPass }).save();
 		res.status(200).json(newUser);
 	} catch (err) {
 		res.status(500).json({ message: err.message });
