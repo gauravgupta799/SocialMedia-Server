@@ -8,7 +8,7 @@ const port =  process.env.PORT || 8800;
 const AuthRoute  = require("./Routes/AuthRoute");
 const UserRoute  = require("./Routes/UserRoute");
 const PostRoute = require("./Routes/PostRoute")
-
+const UploadRoute =require("./Routes/UploadRoute")
 
 dotenv.config();
 app.use(express.json());
@@ -24,6 +24,7 @@ app.get("/", (req, res) => {
 app.use("/auth", AuthRoute)
 app.use('/user', UserRoute)
 app.use('/post', PostRoute)
+app.use('/upload', UploadRoute);
 
 
 mongoose.connect(process.env.MongoURL ,{useNewUrlParser: true, useUnifiedTopology: true})

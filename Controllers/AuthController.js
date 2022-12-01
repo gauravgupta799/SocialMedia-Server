@@ -29,8 +29,12 @@ const login = async (req, res) => {
             res.status(403).json({ message: "Invalid password or username!" })
         }else{
             const accessToken = jwt.sign({id:user._id,username:user.username} ,process.env.Security_key, {expiresIn:'24h'})
-            // const {password, ...info} = user._doc;
-            res.status(200).json({ message: "You logged in successfully",accessToken:accessToken })
+            const {password, ...info} = user._doc;
+            res.status(200).json({ 
+				message: "You logged in successfully",
+				accessToken:accessToken ,
+				user:info
+			})
         }
     }catch (err) {
 		res.status(500).json({ message: err.message });
