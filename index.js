@@ -24,8 +24,7 @@ app.get("/", (req, res) => {
 app.use("/auth", AuthRoute)
 app.use('/user', UserRoute)
 app.use('/post', PostRoute)
-app.use('/upload', UploadRoute);
-
+app.use('/upload', UploadRoute)
 
 mongoose.connect(process.env.MongoURL ,{useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => {

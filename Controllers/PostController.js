@@ -1,6 +1,4 @@
 const PostModel = require("../Models/postModel.js");
-// const User = require("../Models/userModel.js");
-
 const mongoose = require("mongoose");
 
 // Create New Post
@@ -8,7 +6,7 @@ const createPost = async (req, res) => {
 	const newPost = new PostModel(req.body);
 	try {
 		await newPost.save();
-		res.status(200).json({ msg: "Post created!" });
+		res.status(200).json(newPost);
 	} catch (err) {
 		res.status(500).json({ message: err.message });
 	}
