@@ -13,6 +13,7 @@ const UserSchema = new mongoose.Schema(
         livesin: { type: String},
         worksAt: { type: String},
         relationship: { type: String},
+        country:String,
         followers:[],
         following:[]
 	},

@@ -1,5 +1,6 @@
 const User = require("../models/userModel.js");
 const bcrypt = require("bcrypt");
+var jwt = require('jsonwebtoken');
 
 // Get a User
 const getUser = async (req, res) => {
@@ -15,8 +16,8 @@ const getUser = async (req, res) => {
 // Update a user
 const updateUser = async (req, res) => {
     const id = req.params.id;
-    const {currentUserId, isAdmin, password} = req.body;
-    if(id === currentUserId || isAdmin){
+    const {_id, isAdmin, password} = req.body;
+    if(id === _id || isAdmin){
         try{
             if(password){
                 const salt =await bcrypt.genSalt(10);
@@ -25,8 +26,9 @@ const updateUser = async (req, res) => {
             const updatedUser = await User.findByIdAndUpdate(id,
                 {
                     $set: req.body,
-                },{new:true})               
-               res.status(200).json(updatedUser);
+                },{new:true})   
+            const token = jwt.sign({username:updatedUser.username, id:updatedUser._id}, process.env.Security_key ,{expiresIn:'24h'});            
+            res.status(200).json({updatedUser, token});
         }catch(err){
             res.status(500).json(err);
         }
