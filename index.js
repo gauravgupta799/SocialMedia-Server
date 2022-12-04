@@ -13,6 +13,8 @@ const UploadRoute =require("./Routes/UploadRoute")
 dotenv.config();
 app.use(express.json());
 app.use(cors());
+app.use(express.static('public'));
+app.use("/images", express.static("images"));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true}))
